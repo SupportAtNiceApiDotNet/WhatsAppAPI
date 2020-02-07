@@ -38,5 +38,30 @@ namespace WhatsAppAPI_CS
             }
             return false;
         }
+        
+        public void AddNumberToCommercialAccount(String numberToAdd)
+        {
+            try
+            {
+                string url = "https://niceapi.net/APITelNumbers";
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "POST";
+                request.ContentType = "application/x-www-form-urlencoded";
+                request.Headers.Add("X-APIId", APPIID);
+                request.Headers.Add("X-APIInstruction", "Add");
+                using (StreamWriter streamOut = new StreamWriter(request.GetRequestStream()))
+                {
+                    streamOut.Write(numberToAdd);
+                }
+                using (StreamReader streamIn = new StreamReader(request.GetResponse().GetResponseStream()))
+                {
+                    streamIn.ReadToEnd();
+                }
+            }
+            catch
+            {
+            }
+        }
+        
     }
 }
